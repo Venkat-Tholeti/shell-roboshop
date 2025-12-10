@@ -66,6 +66,7 @@ NEWLINE
 mkdir -p /app &>>$LOG_FILE
 VALIDATE $? "APP DIRECTORY CREATION"
 NEWLINE
+rm -rf /app/* # removing any contents in the app directory if we rerun the script
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip  &>>$LOG_FILE
 VALIDATE $? "DOWNLOADING THE CATALOGUE APPLICATION CODE"
 NEWLINE
