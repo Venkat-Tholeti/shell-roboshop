@@ -101,10 +101,10 @@ dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATE $? "INSTALLING MONGODB CLIENT"
 NEWLINE
 
-STATUS=$(mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+STATUS=$(mongosh --host mongodb.devopsaws.store --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
 if [ $STATUS -lt 0 ]
 then
-    mongosh --host mongodb.daws84s.site </app/db/master-data.js &>>$LOG_FILE
+    mongosh --host mongodb.devopsaws.store </app/db/master-data.js &>>$LOG_FILE
     VALIDATE $? "LOADING DATA INTO MONGODB"
 else
     echo -e "$Y DATA IS ALREADY LOADED SO SKIPPING $N"
