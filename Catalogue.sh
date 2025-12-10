@@ -64,7 +64,7 @@ NEWLINE
 cd /app &>>$LOG_FILE
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 sleep 5
-echo "$Y UNZIPPING THE ZIP FILE"
+echo -e "$Y UNZIPPING THE ZIP FILE $N"
 npm install &>>$LOG_FILE
 VALIDATE $? "UNZIP & DEPENDECNCIES  INSTALLATION"
 NEWLINE
