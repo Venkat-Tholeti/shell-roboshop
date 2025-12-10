@@ -67,7 +67,7 @@ VALIDATE $? "DOWNLOADING FRONTEND CONTENT"
 NEWLINE
 
 cd /usr/share/nginx/html &>>$LOG_FILE
-unzip /tmp/frontend.zip
+unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATE $? "UNZIPPING THE CONTENTS"
 NEWLINE
 
