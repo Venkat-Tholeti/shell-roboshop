@@ -66,34 +66,49 @@ NEWLINE
 mkdir -p /app &>>$LOG_FILE
 VALIDATE $? "APP DIRECTORY CREATION"
 NEWLINE
+
 rm -rf /app/* # removing any contents in the app directory if we rerun the script
+
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip  &>>$LOG_FILE
 VALIDATE $? "DOWNLOADING THE CATALOGUE APPLICATION CODE"
 NEWLINE
+
 cd /app &>>$LOG_FILE
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 sleep 5
 echo -e "$Y UNZIPPING THE ZIP FILE $N"
 NEWLINE
+
 npm install &>>$LOG_FILE
 VALIDATE $? "UNZIP & DEPENDECNCIES  INSTALLATION"
 NEWLINE
+
 cp $SCRIPT_DIRECTORY/catalogue.service /etc/systemd/system/catalogue.service &>>$LOG_FILE
 VALIDATE $? "COPYING CATALOGUE SERVICE"
 NEWLINE
+
 systemctl daemon-reload &>>$LOG_FILE
 systemctl enable catalogue &>>$LOG_FILE
 systemctl start catalogue &>>$LOG_FILE
 VALIDATE $? "RELOAD,ENABLING & STARTING OF CATALOGUE SERVICE" 
 NEWLINE
+
 cp $SCRIPT_DIRECTORY/mongodb.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
 VALIDATE $? "COPYING MONGODB REPO"
 NEWLINE
+
 dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATE $? "INSTALLING MONGODB CLIENT"
 NEWLINE
-mongosh --host mongodb.devopsaws.store </app/db/master-data.js &>>$LOG_FILE
-VALIDATE $? "MASTER DATA INPUT"
+
+STATUS=$(mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+if [ $STATUS -lt 0 ]
+then
+    mongosh --host mongodb.daws84s.site </app/db/master-data.js &>>$LOG_FILE
+    VALIDATE $? "LOADING DATA INTO MONGODB"
+else
+    echo -e "$Y DATA IS ALREADY LOADED SO SKIPPING $N"
+fi
 
 
 
