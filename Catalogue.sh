@@ -76,7 +76,7 @@ systemctl enable catalogue &>>$LOG_FILE
 systemctl start catalogue &>>$LOG_FILE
 VALIDATE $? "RELOAD,ENABLING & STARTING OF CATALOGUE SERVICE" 
 NEWLINE
-cp mongodb.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
+cp $SCRIPT_DIRECTORY/mongodb.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
 VALIDATE $? "COPYING MONGODB REPO"
 NEWLINE
 dnf install mongodb-mongosh -y &>>$LOG_FILE
