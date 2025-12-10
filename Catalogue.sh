@@ -104,7 +104,7 @@ NEWLINE
 STATUS=$(mongosh --host mongodb.daws84s.site --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
 if [ $STATUS -lt 0 ]
 then
-    mongosh --host mongodb.devopsaws.store </app/db/master-data.js &>>$LOG_FILE
+    mongosh --host mongodb.daws84s.site </app/db/master-data.js &>>$LOG_FILE
     VALIDATE $? "LOADING DATA INTO MONGODB"
 else
     echo -e "$Y DATA IS ALREADY LOADED SO SKIPPING $N"
