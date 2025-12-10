@@ -48,10 +48,10 @@ NEWLINE
 dnf install mongodb-org -y &>>$LOG_FILE
 VALIDATE $? "INSTALLING MONGODB SERVER"
 NEWLINE
-systemctl enable mongodb &>>$LOG_FILE
+systemctl enable mongod &>>$LOG_FILE
 VALIDATE $? "ENABLING MONGODB SERVER"
 NEWLINE
-systemctl start mongodb &>>$LOG_FILE
+systemctl start mongod &>>$LOG_FILE
 VALIDATE $? "STARTING MONGODB SERVER"
 NEWLINE
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>>$LOG_FILE
