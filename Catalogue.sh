@@ -52,10 +52,18 @@ NEWLINE
 dnf install nodejs -y &>>$LOG_FILE
 VALIDATE $? "INSTALLATION OF NODEJS"
 NEWLINE
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
-VALIDATE $? "CREATING APPLICATION USER"
+
+id roboshop
+if [ $? -ne 0 ]
+then 
+   useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
+   VALIDATE $? "CREATING APPLICATION USER"
+else
+   echo -e "$Y USER ALREADY EXIST, SKIPPING $N"
+fi
+
 NEWLINE
-mkdir /app &>>$LOG_FILE
+mkdir -p /app &>>$LOG_FILE
 VALIDATE $? "APP DIRECTORY CREATION"
 NEWLINE
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip  &>>$LOG_FILE
@@ -65,6 +73,7 @@ cd /app &>>$LOG_FILE
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 sleep 5
 echo -e "$Y UNZIPPING THE ZIP FILE $N"
+NEWLINE
 npm install &>>$LOG_FILE
 VALIDATE $? "UNZIP & DEPENDECNCIES  INSTALLATION"
 NEWLINE
