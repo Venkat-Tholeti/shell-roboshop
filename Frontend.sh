@@ -41,79 +41,47 @@ VALIDATE(){
     fi
 }
 
-# dnf module disable nginx -y &>>$LOG_FILE
-# VALIDATE $? "DISABLE OLD MODULE OF NGINX" 
-# NEWLINE
-# dnf module enable nginx:1.24 -y &>>$LOG_FILE
-# VALIDATE $? "ENABLE MODULE:1.24 OF NGINX"
-# NEWLINE
-# dnf install nginx -y &>>$LOG_FILE
-# VALIDATE $? "INSTALLATION OF NGINX"
-# NEWLINE
-
-# systemctl enable nginx &>>$LOG_FILE
-# VALIDATE $? "ENABLING NGINX"
-# NEWLINE
-# systemctl start nginx &>>$LOG_FILE
-# VALIDATE $? "STARTING NGINX"
-# NEWLINE
-
-# rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
-# VALIDATE $? "REMOVING DEFAULT CONTENT"
-# NEWLINE
-
-# curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
-# VALIDATE $? "DOWNLOADING FRONTEND CONTENT"
-# NEWLINE
-
-# cd /usr/share/nginx/html &>>$LOG_FILE
-# unzip /tmp/frontend.zip &>>$LOG_FILE
-# VALIDATE $? "UNZIPPING THE CONTENTS"
-# NEWLINE
-
-# rm -rf /etc/nginx/nginx.conf &>>$LOG_FILE
-# VALIDATE $? "REMOVE DEFAULT NGINX CONF FILE"
-# NEWLINE
-
-# cp $SCRIPT_DIRECTORY/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
-# VALIDATE $? "COPYING NGINX CONF FILE"
-# NEWLINE
-
-# systemctl restart nginx &>>$LOG_FILE
-# VALIDATE $? "RESTART NGINX"
-
-
 dnf module disable nginx -y &>>$LOG_FILE
-VALIDATE $? "Disabling Default Nginx"
-
+VALIDATE $? "DISABLE OLD MODULE OF NGINX" 
+NEWLINE
 dnf module enable nginx:1.24 -y &>>$LOG_FILE
-VALIDATE $? "Enabling Nginx:1.24"
-
+VALIDATE $? "ENABLE MODULE:1.24 OF NGINX"
+NEWLINE
 dnf install nginx -y &>>$LOG_FILE
-VALIDATE $? "Installing Nginx"
+VALIDATE $? "INSTALLATION OF NGINX"
+NEWLINE
 
-systemctl enable nginx  &>>$LOG_FILE
-systemctl start nginx 
-VALIDATE $? "Starting Nginx"
+systemctl enable nginx &>>$LOG_FILE
+VALIDATE $? "ENABLING NGINX"
+NEWLINE
+systemctl start nginx &>>$LOG_FILE
+VALIDATE $? "STARTING NGINX"
+NEWLINE
 
 rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
-VALIDATE $? "Removing default content"
+VALIDATE $? "REMOVING DEFAULT CONTENT"
+NEWLINE
 
 curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
-VALIDATE $? "Downloading frontend"
+VALIDATE $? "DOWNLOADING FRONTEND CONTENT"
+NEWLINE
 
-cd /usr/share/nginx/html 
+cd /usr/share/nginx/html &>>$LOG_FILE
 unzip /tmp/frontend.zip &>>$LOG_FILE
-VALIDATE $? "unzipping frontend"
+VALIDATE $? "UNZIPPING THE CONTENTS"
+NEWLINE
 
 rm -rf /etc/nginx/nginx.conf &>>$LOG_FILE
-VALIDATE $? "Remove default nginx conf"
+VALIDATE $? "REMOVE DEFAULT NGINX CONF FILE"
+NEWLINE
 
-cp $SCRIPT_DIRECTORY/nginx.conf /etc/nginx/nginx.conf
-VALIDATE $? "Copying nginx.conf"
+cp $SCRIPT_DIRECTORY/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
+VALIDATE $? "COPYING NGINX CONF FILE"
+NEWLINE
 
-systemctl restart nginx 
-VALIDATE $? "Restarting nginx"
+systemctl restart nginx &>>$LOG_FILE
+VALIDATE $? "RESTART NGINX"
+
 
 
 
