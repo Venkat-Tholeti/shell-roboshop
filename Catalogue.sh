@@ -88,6 +88,7 @@ VALIDATE $? "COPYING CATALOGUE SERVICE"
 NEWLINE
 
 systemctl daemon-reload &>>$LOG_FILE
+sleep 5
 systemctl enable catalogue &>>$LOG_FILE
 systemctl start catalogue &>>$LOG_FILE
 VALIDATE $? "RELOAD,ENABLING & STARTING OF CATALOGUE SERVICE" 
