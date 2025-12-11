@@ -41,49 +41,79 @@ VALIDATE(){
     fi
 }
 
-dnf module disable nginx -y &>>$LOG_FILE
-VALIDATE $? "DISABLE OLD MODULE OF NGINX" 
-NEWLINE
-dnf module enable nginx:1.24 -y &>>$LOG_FILE
-VALIDATE $? "ENABLE MODULE:1.24 OF NGINX"
-NEWLINE
-dnf install nginx -y &>>$LOG_FILE
-VALIDATE $? "INSTALLATION OF NGINX"
-NEWLINE
+# dnf module disable nginx -y &>>$LOG_FILE
+# VALIDATE $? "DISABLE OLD MODULE OF NGINX" 
+# NEWLINE
+# dnf module enable nginx:1.24 -y &>>$LOG_FILE
+# VALIDATE $? "ENABLE MODULE:1.24 OF NGINX"
+# NEWLINE
+# dnf install nginx -y &>>$LOG_FILE
+# VALIDATE $? "INSTALLATION OF NGINX"
+# NEWLINE
 
-systemctl enable nginx &>>$LOG_FILE
-VALIDATE $? "ENABLING NGINX"
-NEWLINE
-systemctl start nginx &>>$LOG_FILE
-VALIDATE $? "STARTING NGINX"
-NEWLINE
+# systemctl enable nginx &>>$LOG_FILE
+# VALIDATE $? "ENABLING NGINX"
+# NEWLINE
+# systemctl start nginx &>>$LOG_FILE
+# VALIDATE $? "STARTING NGINX"
+# NEWLINE
+
+# rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
+# VALIDATE $? "REMOVING DEFAULT CONTENT"
+# NEWLINE
+
+# curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
+# VALIDATE $? "DOWNLOADING FRONTEND CONTENT"
+# NEWLINE
+
+# cd /usr/share/nginx/html &>>$LOG_FILE
+# unzip /tmp/frontend.zip &>>$LOG_FILE
+# VALIDATE $? "UNZIPPING THE CONTENTS"
+# NEWLINE
+
+# rm -rf /etc/nginx/nginx.conf &>>$LOG_FILE
+# VALIDATE $? "REMOVE DEFAULT NGINX CONF FILE"
+# NEWLINE
+
+# cp $SCRIPT_DIRECTORY/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
+# VALIDATE $? "COPYING NGINX CONF FILE"
+# NEWLINE
+
+# systemctl restart nginx &>>$LOG_FILE
+# VALIDATE $? "RESTART NGINX"
+
+
+dnf module disable nginx -y &>>$LOG_FILE
+VALIDATE $? "Disabling Default Nginx"
+
+dnf module enable nginx:1.24 -y &>>$LOG_FILE
+VALIDATE $? "Enabling Nginx:1.24"
+
+dnf install nginx -y &>>$LOG_FILE
+VALIDATE $? "Installing Nginx"
+
+systemctl enable nginx  &>>$LOG_FILE
+systemctl start nginx 
+VALIDATE $? "Starting Nginx"
 
 rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
-VALIDATE $? "REMOVING DEFAULT CONTENT"
-NEWLINE
+VALIDATE $? "Removing default content"
 
 curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
-VALIDATE $? "DOWNLOADING FRONTEND CONTENT"
-NEWLINE
+VALIDATE $? "Downloading frontend"
 
-cd /usr/share/nginx/html &>>$LOG_FILE
+cd /usr/share/nginx/html 
 unzip /tmp/frontend.zip &>>$LOG_FILE
-VALIDATE $? "UNZIPPING THE CONTENTS"
-NEWLINE
+VALIDATE $? "unzipping frontend"
 
 rm -rf /etc/nginx/nginx.conf &>>$LOG_FILE
-VALIDATE $? "REMOVE DEFAULT NGINX CONF FILE"
-NEWLINE
+VALIDATE $? "Remove default nginx conf"
 
-cp $SCRIPT_DIRECTORY/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
-VALIDATE $? "COPYING NGINX CONF FILE"
-NEWLINE
+cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf
+VALIDATE $? "Copying nginx.conf"
 
-systemctl restart nginx &>>$LOG_FILE
-VALIDATE $? "RESTART NGINX"
-
-
-
+systemctl restart nginx 
+VALIDATE $? "Restarting nginx"
 
 
 
