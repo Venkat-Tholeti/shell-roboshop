@@ -79,6 +79,9 @@ mv target/shipping-1.0.jar shipping.jar &>>$LOG_FILE
 VALIDATE $? "JAR FILE RENAME"
 NEWLINE
 
+cp $SCRIPT_DIRECTORY/shipping.service /etc/systemd/system/shipping.service
+VALIDATE $? "COPING OF SHIPPING SERVICE"
+
 systemctl daemon-reload &>>$LOG_FILE
 sleep 5
 systemctl enable shipping &>>$LOG_FILE
