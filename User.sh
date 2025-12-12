@@ -85,16 +85,15 @@ VALIDATE $? "UNZIP & DEPENDECNCIES  INSTALLATION"
 NEWLINE
 
 cp $SCRIPT_DIRECTORY/user.service /etc/systemd/system/user.service &>>$LOG_FILE
-VALIDATE $? "COPYING user SERVICE"
+VALIDATE $? "COPYING USER SERVICE"
 NEWLINE
 
 systemctl daemon-reload &>>$LOG_FILE
 sleep 5
 systemctl enable user &>>$LOG_FILE
 systemctl start user &>>$LOG_FILE
-VALIDATE $? "RELOAD,ENABLING & STARTING OF user SERVICE" 
+VALIDATE $? "RELOAD,ENABLING & STARTING OF USER SERVICE" 
 NEWLINE
-fi
 
 END_TIME=$(date +%s)
 TOTAL_TIME=$(($END_TIME - $START_TIME))
