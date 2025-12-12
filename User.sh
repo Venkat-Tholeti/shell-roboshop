@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-START_TIME=$(date %s)
+START_TIME=$(date +%s)
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
