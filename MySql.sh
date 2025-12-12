@@ -24,9 +24,6 @@ else
    echo -e "$G USER HAS ROOT PRIVILEGES $N" | tee -a $LOG_FILE
 fi
 
-echo -e "$Y Please SETUP MYSQL PASSWORD $N"
-read -s MYSQL_ROOT_PASSWORD
-
 #FUNCTION NAME WE GAVE AS VALIDATE & NEWLINE (name our choice)
 # we can provide arguments to function as we do it for script
 #VALIDATE $? MYSQL  --> here 1st argument is exit status $1 = $?, 2nd argument is what we tried to install $2 =MYSL, PYTHON3 , NGINX
@@ -53,6 +50,8 @@ NEWLINE
 systemctl start mysqld  &>>$LOG_FILE
 VALIDATE $? "ENABLING & STARTING OF MYSQL"
 NEWLINE
+echo -e "$Y Please SETUP MYSQL PASSWORD $N"
+read -s MYSQL_ROOT_PASSWORD
 mysql_secure_installation --set-root-pass $MYSQL_ROOT_PASSWORD
 VALIDATE $? "ROOT PASSWORD FOR MYSQL"
 NEWLINE
