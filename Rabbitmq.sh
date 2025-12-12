@@ -8,6 +8,7 @@ N="\e[0m"
 LOGS_FOLDER="/var/log/shellscript.logs"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
+SCRIPT_DIRECTORY=$PWD
 
 mkdir -p $LOGS_FOLDER
 echo -e "$G script started executing at $(date)" &>>$LOG_FILE
@@ -41,31 +42,28 @@ VALIDATE(){
     fi
 }
 
+cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo &>>$LOG_FILE
+VALIDATE $? "COPYING THE REPO"
+NEWLINE
 
-dnf module disable redis -y &>>$LOG_FILE
-VALIDATE $? "DISABLING REDIS MODULE"
+dnf install rabbitmq-server -y &>>$LOG_FILE
+VALIDATE $? "INSTALLTION OF RABBITMQ"
 NEWLINE
-dnf module enable redis:7 -y &>>$LOG_FILE
-VALIDATE $? "ENABLING REDIS 7 MODULE"
+
+systemctl enable rabbitmq-server &>>$LOG_FILE
+systemctl start rabbitmq-server &>>$LOG_FILE
+VALIDATE $? "ENABLING AND STARTING OF RABBITMQ"
 NEWLINE
-dnf install redis -y &>>$LOG_FILE
-VALIDATE $? "INSTALLING REDIS"
-NEWLINE
-sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/ c protected-mode no' /etc/redis/redis.conf &>>$LOG_FILE
-VALIDATE $? "EDITING REDIS CONF FILE FOR REMOTE CONNECTIONS AND PROTECT MODE CHANGES"
-NEWLINE
-systemctl enable redis &>>$LOG_FILE
-systemctl start redis  &>>$LOG_FILE
-VALIDATE $? "ENABLE & START REDIS"
+
+echo -e "$Y PLEASE SETUP PASSWORD $N"
+read -s PASSWORD
+
+rabbitmqctl add_user roboshop $PASSWORD &>>$LOG_FILE
+VALIDATE $? "USERNAME AND PASSWORD CREATION"
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOG_FILE
+VALIDATE $? "PERMISSIONS SET"
 
 END_TIME=$(date +%s)
 TOTAL_TIME=$(($END_TIME - $START_TIME))
 
 echo -e "$Y Total time taken to execute the script is $TOTAL_TIME seconds $N"
-
-
-
-
-
-
-
