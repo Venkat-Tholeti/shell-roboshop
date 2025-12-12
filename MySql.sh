@@ -10,9 +10,9 @@ NEWLINE
 dnf install $app_name-server -y &>>$LOG_FILE
 VALIDATE $? "INSTALLING $APP_NAME SERVER"
 NEWLINE
-systemctl enable $app_named &>>$LOG_FILE
+systemctl enable mysqld &>>$LOG_FILE
 NEWLINE
-systemctl start $app_named  &>>$LOG_FILE
+systemctl start mysqld  &>>$LOG_FILE
 VALIDATE $? "ENABLING & STARTING OF $APP_NAME"
 NEWLINE
 echo -e "$Y Please SETUP $APP_NAME PASSWORD $N"
