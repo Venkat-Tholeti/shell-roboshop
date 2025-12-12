@@ -72,7 +72,7 @@ unzip /tmp/payment.zip &>>$LOG_FILE
 sleep 5
 echo -e "$Y UNZIPPING THE ZIP FILE $N"
 NEWLINE
-pip3 install -r requirements.txt
+pip3 install -r requirements.txt &>>$LOG_FILE
 VALIDATE $? "DOWNLAOD THE DEPENDENCIES"
 NEWLINE
 
