@@ -26,10 +26,10 @@ read -s PASSWORD
 rabbitmqctl add_user roboshop $PASSWORD &>>$LOG_FILE
 if [ $? -e 0 ]
 then
-   echo -e "USERNAME AND PASSWORD CREATED"
+   echo -e "$G USERNAME AND PASSWORD CREATED $N"
    VALIDATE $? "USERNAME & PASSWORD CREATION"
 else
-    echo -e "SKIPPING"
+    echo -e "$Y SKIPPING $N"
 fi
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOG_FILE
