@@ -76,7 +76,7 @@ pip3 install -r requirements.txt &>>$LOG_FILE
 VALIDATE $? "DOWNLAOD THE DEPENDENCIES"
 NEWLINE
 
-cp $SCRIPT_DIRECTORY/shipping.service /etc/systemd/system/shipping.service &>>$LOG_FILE
+cp $SCRIPT_DIRECTORY/payment.service /etc/systemd/system/payment.service &>>$LOG_FILE
 
 systemctl daemon-reload &>>$LOG_FILE
 sleep 5
