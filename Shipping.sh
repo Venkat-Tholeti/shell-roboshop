@@ -67,7 +67,7 @@ VALIDATE $? "DOWNLOADING THE SHIPPING APPLICATION CODE"
 NEWLINE
 
 cd /app &>>$LOG_FILE
-unzip /tmp/catalogue.zip &>>$LOG_FILE
+unzip /tmp/shipping.zip &>>$LOG_FILE
 sleep 5
 echo -e "$Y UNZIPPING THE ZIP FILE $N"
 VALIDATE $? "UNZIIPING THE FILE"
@@ -89,11 +89,14 @@ NEWLINE
 dnf install mysql -y &>>$LOG_FILE
 VALIDATE $? "INSTALLING MYSQL"
 NEWLINE
-mysql -h mysql.devopsaws.store -uroot -pRoboShop@1 < /app/db/schema.sql
+echo -e "$Y Please SETUP MYSQL PASSWORD $N"
+read -s MYSQL_ROOT_PASSWORD
 NEWLINE
-mysql -h mysql.devopsaws.store -uroot -pRoboShop@1 < /app/db/app-user.sql
+mysql -h mysql.devopsaws.store -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/schema.sql
 NEWLINE
-mysql -h mysql.devopsaws.store -uroot -pRoboShop@1 < /app/db/master-data.sql
+mysql -h mysql.devopsaws.store -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/app-user.sql
+NEWLINE
+mysql -h mysql.devopsaws.store -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/master-data.sql
 NEWLINE
 systemctl restart shipping &>>$LOG_FILE
 VALDIATE $? "RESTAT SHIPPING"
