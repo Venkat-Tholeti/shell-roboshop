@@ -58,10 +58,10 @@ systemctl enable redis &>>$LOG_FILE
 systemctl start redis  &>>$LOG_FILE
 VALIDATE $? "ENABLE & START REDIS"
 
-END_TIME=$(date +$s)
+END_TIME=$(date +%s)
 TOTAL_TIME=$(($END_TIME - $START_TIME))
 
-echo "$Y Total time taken to execute the script is $TOTAL_TIME $N"
+echo -e "$Y Total time taken to execute the script is $TOTAL_TIME $N"
 
 
 
