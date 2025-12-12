@@ -54,7 +54,7 @@ dnf install nodejs -y &>>$LOG_FILE
 VALIDATE $? "INSTALLATION OF NODEJS"
 NEWLINE
 npm install &>>$LOG_FILE
-VALIDATE $? "UNZIP & DEPENDECNCIES  INSTALLATION"
+VALIDATE $? "DEPENDENCIES  INSTALLATION"
 NEWLINE
 }
 
@@ -82,7 +82,7 @@ NEWLINE
 cd /app &>>$LOG_FILE
 unzip /tmp/$app_name.zip &>>$LOG_FILE
 sleep 5
-echo -e "$Y UNZIPPING THE ZIP FILE $N"
+echo -e "$Y UNZIPPING THE ZIP FILE IS $N"
 }
 
 SYSTEMD_SETUP(){
