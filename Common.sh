@@ -86,6 +86,19 @@ sleep 5
 echo -e "$Y UNZIPPING THE ZIP FILE IS $N"
 }
 
+MAVEN_SETUP(){
+dnf install maven -y &>>$LOG_FILE
+VALIDATE $? "INSTALLATION OF MAVEN AND JAVA"
+NEWLINE
+mvn clean package &>>$LOG_FILE
+VALIDATE $? "CLEAN PACKAGE"
+NEWLINE
+mv target/$app_name-1.0.jar $app_name.jar &>>$LOG_FILE
+VALIDATE $? "JAR FILE RENAME"
+NEWLINE
+}
+
+
 SYSTEMD_SETUP(){
 cp $SCRIPT_DIRECTORY/$app_name.service /etc/systemd/system/$app_name.service &>>$LOG_FILE
 VALIDATE $? "COPYING $APP_NAME SERVICE"
