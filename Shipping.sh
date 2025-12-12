@@ -96,14 +96,19 @@ NEWLINE
 echo -e "$Y Please SETUP MYSQL PASSWORD $N"
 read -s MYSQL_ROOT_PASSWORD
 NEWLINE
+mysql -h mysql.devopsaws.store -u root -p$MYSQL_ROOT_PASSWORD -e 'use cities'
+if [$? -ne 0 ]
+then
 mysql -h mysql.devopsaws.store -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/schema.sql
 NEWLINE
 mysql -h mysql.devopsaws.store -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/app-user.sql
 NEWLINE
 mysql -h mysql.devopsaws.store -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/master-data.sql
 NEWLINE
+else
+echo -e "$Y DATA IS ALREADY LOADED, SO SKIPPING $N"
+fi
 
-sleep 10
 NEWLINE
 systemctl restart shipping &>>$LOG_FILE
 VALIDATE $? "RESTART SHIPPING"
