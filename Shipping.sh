@@ -70,7 +70,7 @@ cd /app &>>$LOG_FILE
 unzip /tmp/shipping.zip &>>$LOG_FILE
 sleep 5
 echo -e "$Y UNZIPPING THE ZIP FILE $N"
-VALIDATE $? "UNZIIPING THE FILE"
+VALIDATE $? "UNZIPPING THE FILE"
 NEWLINE
 mvn clean package &>>$LOG_FILE
 VALIDATE $? "CLEAN PACKAGE"
@@ -106,7 +106,7 @@ NEWLINE
 sleep 10
 NEWLINE
 systemctl restart shipping &>>$LOG_FILE
-VALDIATE $? "RESTART SHIPPING"
+VALIDATE $? "RESTART SHIPPING"
 NEWLINE
 
 END_TIME=$(date +%s)
