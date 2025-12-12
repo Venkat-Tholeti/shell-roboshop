@@ -44,12 +44,12 @@ VALIDATE(){
     fi
 }
 
-dnf install mysql-server -y .100
+dnf install mysql-server -y &>>$LOG_FILE
 VALIDATE $? "INSTALLING MYSQL SERVER"
 NEWLINE
-systemctl enable mysqld .100
+systemctl enable mysqld &>>$LOG_FILE
 NEWLINE
-systemctl start mysqld  .100
+systemctl start mysqld  &>>$LOG_FILE
 VALIDATE $? "ENABLING & STARTING OF MYSQL"
 NEWLINE
 echo -e "$Y Please SETUP MYSQL PASSWORD $N"
