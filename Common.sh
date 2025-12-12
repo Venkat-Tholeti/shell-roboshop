@@ -98,6 +98,18 @@ VALIDATE $? "JAR FILE RENAME"
 NEWLINE
 }
 
+PYTHON_SETUP(){
+dnf install python3 gcc python3-devel -y &>>$LOG_FILE
+VALIDATE $? "PYTHON ISTALLATION"
+NEWLINE
+
+pip3 install -r requirements.txt &>>$LOG_FILE
+VALIDATE $? "DOWNLAOD THE DEPENDENCIES"
+NEWLINE
+
+}
+
+
 
 SYSTEMD_SETUP(){
 cp $SCRIPT_DIRECTORY/$app_name.service /etc/systemd/system/$app_name.service &>>$LOG_FILE
