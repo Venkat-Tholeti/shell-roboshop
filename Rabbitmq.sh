@@ -24,7 +24,7 @@ echo -e "$Y PLEASE SETUP PASSWORD $N"
 read -s PASSWORD
 
 rabbitmqctl add_user roboshop $PASSWORD &>>$LOG_FILE
-if [ $? -e 0 ]
+if [ $? -eq 0 ]
 then
    echo -e "$G USERNAME AND PASSWORD CREATED $N"
    VALIDATE $? "USERNAME & PASSWORD CREATION"
