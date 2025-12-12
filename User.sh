@@ -95,10 +95,6 @@ systemctl start user &>>$LOG_FILE
 VALIDATE $? "RELOAD,ENABLING & STARTING OF USER SERVICE" 
 NEWLINE
 
-END_TIME=$(date +%s)
-TOTAL_TIME=$(($END_TIME - $START_TIME))
-
-echo -e "$Y Total time taken to execute the script is $TOTAL_TIME seconds $N"
 
 
 
