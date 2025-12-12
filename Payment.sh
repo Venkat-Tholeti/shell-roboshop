@@ -43,7 +43,7 @@ VALIDATE(){
     fi
 }
 
-dnf install python3 gcc python3-devel -y .100
+dnf install python3 gcc python3-devel -y &>>$LOG_FILE
 VALIDATE $? "PYTHON ISTALLATION"
 NEWLINE
 
