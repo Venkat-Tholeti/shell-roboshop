@@ -102,8 +102,11 @@ mysql -h mysql.devopsaws.store -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/app-user.
 NEWLINE
 mysql -h mysql.devopsaws.store -uroot -p$MYSQL_ROOT_PASSWORD < /app/db/master-data.sql
 NEWLINE
+
+sleep 10
+NEWLINE
 systemctl restart shipping &>>$LOG_FILE
-VALDIATE $? "RESTAT SHIPPING"
+VALDIATE $? "RESTART SHIPPING"
 NEWLINE
 
 END_TIME=$(date +%s)
