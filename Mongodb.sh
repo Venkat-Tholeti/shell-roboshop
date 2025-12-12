@@ -1,10 +1,9 @@
 #!/bin/bash
 
 source ./Common.sh
-NEWLINE
 app_name=mongodb
-NEWLINE
 check_root
+NEWLINE
 
 cp mongodb.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
 VALIDATE $? "COPYING MONGODB REPO"
