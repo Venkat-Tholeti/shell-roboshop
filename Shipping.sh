@@ -80,7 +80,8 @@ VALIDATE $? "JAR FILE RENAME"
 NEWLINE
 
 cp $SCRIPT_DIRECTORY/shipping.service /etc/systemd/system/shipping.service
-VALIDATE $? "COPING OF SHIPPING SERVICE"
+VALIDATE $? "COPYING OF SHIPPING SERVICE"
+NEWLINE
 
 systemctl daemon-reload &>>$LOG_FILE
 sleep 5
